@@ -29,7 +29,7 @@ struct Students
 void Create(Students* S, const int N);
 double Avarage_grade(Students* S, const int i);
 void Print(Students* S, const int N);
-int Percentage(Students* S, const int N);
+double Percentage(Students* S, const int N);
 
 int main()
 {
@@ -43,7 +43,7 @@ int main()
 
     Create(S, N);
     Print(S, N);
-    cout << "Процент студентів, які мають 5 або 4 з фізики: " << Percentage(S, N) << "%";
+    cout << "Процент студентів, які мають 5 або 4 з фізики: " << setprecision(2) << Percentage(S, N) << "%";
 
     return 0;
 }
@@ -57,7 +57,7 @@ void Create(Students* S, const int N)
         cin.sync();
         cout << "Прізвище: "; getline(cin, S[i].surname); cout << endl;
         cout << "Курс: "; cin >> S[i].course; cout << endl;
-        cout << "Спеціальність(0 - ITIS, 1 - IT, 2 - RE, 3 - KN\n4 - KI, 5 - PZ)";
+        cout << "Спеціальність(0 - ITIS, 1 - IT, 2 - RE, 3 - KN, 4 - KI, 5 - PZ): ";
         cin >> speciality;
         S[i].speciality = (Speciality)speciality;
         cout << "Оцінка з фізики: "; cin >> S[i].grade_physics; cout << endl;
@@ -87,7 +87,7 @@ void Print(Students* S, const int N)
     }
     cout << "=====================================" << endl;
 }
-int Percentage(Students* S, const int N)
+double Percentage(Students* S, const int N)
 {
     int k = 0;
     for (int i = 0; i < N; i++)
