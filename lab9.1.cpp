@@ -9,7 +9,7 @@ using namespace std;
 #pragma pack(push, 1)
 
 enum Speciality { ITIS, RE, KN, KI, PZ };
-string speciality_str[] = { "Інформаційні системи та технології ",
+string speciality_str[] = { "Інформатика ",
                             "Радіоелектроніка", "Комп'ютерні науки",
                             "Комп'ютерна інженерія", "Програмне забезпечення" };
 
@@ -30,6 +30,7 @@ void Create(Students* S, const int N);
 double Avarage_grade(Students* S, const int i);
 void Print(Students* S, const int N);
 double Percentage(Students* S, const int N);
+void Print_first(Students* S, const int N);
 
 int main()
 {
@@ -42,6 +43,7 @@ int main()
     Students* S = new Students[N];
 
     Create(S, N);
+    Print_first(S, N);
     Print(S, N);
     cout << "Процент студентів, які мають 5 або 4 з фізики: " << setprecision(2) << Percentage(S, N) << "%";
 
@@ -57,7 +59,8 @@ void Create(Students* S, const int N)
         cin.sync();
         cout << "Прізвище: "; getline(cin, S[i].surname); cout << endl;
         cout << "Курс: "; cin >> S[i].course; cout << endl;
-        cout << "Спеціальність(0 - ITIS, 1 - IT, 2 - RE, 3 - KN, 4 - KI, 5 - PZ): ";
+        cout << "Спеціальність(0 - Інформатика, 1 - Радіоелектроніка, 2 - Комп'ютерні науки,";
+        cout << "\n3 - Комп'ютерна інженерія, 4 - Програмне забезпечення): ";
         cin >> speciality;
         S[i].speciality = (Speciality)speciality;
         cout << "Оцінка з фізики: "; cin >> S[i].grade_physics; cout << endl;
@@ -70,6 +73,24 @@ void Create(Students* S, const int N)
 double Avarage_grade(Students* S, const int i)
 {
     return (S[i].grade_math * 1. + S[i].grade_physics * 1. + S[i].computer_science * 1.) / 3.;
+}
+void Print_first(Students* S, const int N)
+{
+    cout << "=========================================================================================" << endl;
+    cout << "|  №  |  Прізвище  |  курс  |  спеціальність  |  Фізика  |  Математика  |  Інформатика  |" << endl;
+    cout << "-----------------------------------------------------------------------------------------" << endl;
+
+    for (int i = 0; i < N; i++)
+    {
+        cout << "|" << setw(3) << i + 1 << setw(3);
+        cout << "|" << setw(4) << S[i].surname << setw(4);
+        cout << "|" << setw(6) << S[i].course << setw(6);
+        cout << "|" << setw(6) << speciality_str[S[i].speciality] << setw(6);
+        cout << "|" << setw(6) << S[i].grade_physics << setw(6);
+        cout << "|" << setw(6) << S[i].grade_math << setw(6);
+        cout << "|" << setw(6) << S[i].computer_science << setw(6) << "|" << endl;
+    }
+    cout << "=========================================================================================" << endl << endl;
 }
 void Print(Students* S, const int N)
 {
